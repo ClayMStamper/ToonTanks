@@ -43661,6 +43661,7 @@
       <e p="UE4Game.Target.cs" t="Include" />
     </e>
     <e p="X:\UnrealProgs\Udemy\ToonTanks" t="IncludeFlat">
+      <e p=".gitignore" t="Include" />
       <e p="Config" t="Include">
         <e p="DefaultEditor.ini" t="Include" />
         <e p="DefaultEngine.ini" t="Include" />
@@ -43682,6 +43683,8 @@
             <e p="PawnBase.h" t="Include" />
             <e p="PawnTank.cpp" t="Include" />
             <e p="PawnTank.h" t="Include" />
+            <e p="PawnTurret.cpp" t="Include" />
+            <e p="PawnTurret.h" t="Include" />
           </e>
           <e p="ToonTanks.Build.cs" t="Include" />
           <e p="ToonTanks.cpp" t="Include" />

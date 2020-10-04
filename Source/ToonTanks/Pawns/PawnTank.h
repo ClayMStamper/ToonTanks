@@ -28,11 +28,11 @@ private:
 	FQuat RotDir;
 	float CurrentSprintBonus = 0.f;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Movement", meta=(AllowPrivateAccess="true"))
 	float MoveSpeed = 200.f;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Movement", meta=(AllowPrivateAccess="true"))
 	float MaxSprintBonus = 100.f;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Movement", meta=(AllowPrivateAccess="true"))
 	float RotSpeed = 100.f;
 	
 	void CalcMoveInput(float Val);
