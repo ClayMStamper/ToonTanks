@@ -20,7 +20,8 @@ APawnTank::APawnTank()
 void APawnTank::BeginPlay()
 {
     Super::BeginPlay();
-	
+    // "Controller" created by Pawn
+	PlayerController = Cast<APlayerController>(GetController());
 }
 
 // Called every frame
@@ -38,6 +39,7 @@ void APawnTank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
     PlayerInputComponent->BindAxis("MoveForward", this, &APawnTank::CalcMoveInput);
     PlayerInputComponent->BindAxis("Turn", this, &APawnTank::CalcRotateInput);
     PlayerInputComponent->BindAxis("Sprint", this, &APawnTank::CalcSprintBonus);
+    PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &APawnTank::Fire);
 }
 
 void APawnTank::CalcMoveInput(float Val)
@@ -66,6 +68,12 @@ void APawnTank::Move()
 void APawnTank::Rotate()
 {
     AddActorLocalRotation(RotDir, true);
+}
+
+void APawnTank::HandleDestruction()
+{
+    Super::HandleDestruction();
+    //hide player
 }
 
 

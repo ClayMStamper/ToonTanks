@@ -2,6 +2,8 @@
 
 
 #include "PawnTurret.h"
+
+#include "PawnTank.h"
 #include "Kismet/GameplayStatics.h"
 
 APawnTurret::APawnTurret()
@@ -16,6 +18,7 @@ void APawnTurret::BeginPlay()
 {
     Super::BeginPlay();
 	GetWorld()->GetTimerManager().SetTimer(FireRateTimerHandle, this, &APawnTurret::CheckFireCondition, FireRate, true);
+    PlayerPawn = Cast<APawnTank>(UGameplayStatics::GetPlayerPawn(this, 0));
 }
 
 // Called every frame
@@ -23,6 +26,10 @@ void APawnTurret::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
 
+    if (!PlayerPawn || CalcDistanceToPlayer() > Range)
+        return;
+    
+    RotateBarrel(PlayerPawn->GetActorLocation());
 }
 
 // Called to bind functionality to input
@@ -35,7 +42,24 @@ void APawnTurret::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 void APawnTurret::CheckFireCondition()
 {
     // if player == null/dead then return
-
+    if (!PlayerPawn)
+    {
+        UE_LOG(LogTemp, Error, TEXT("NULL reference to player"));
+        return;
+    }
+    
     //fire if player is in range
-    UE_LOG(LogTemp, Warning, TEXT("%s Fired!"), *GetOwner()->GetName());
+    if (CalcDistanceToPlayer() < Range)
+        Fire();
+}
+
+float APawnTurret::CalcDistanceToPlayer()
+{
+    return FVector::Dist(PlayerPawn->GetActorLocation(), GetActorLocation());
+}
+
+void APawnTurret::HandleDestruction()
+{
+    Super::HandleDestruction();
+    Destroy();
 }

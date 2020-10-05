@@ -13,7 +13,12 @@ class TOONTANKS_API APawnBase : public APawn
 {
 	GENERATED_BODY()
 
-private:
+protected:
+	
+	virtual void BeginPlay() override;
+	virtual void RotateBarrel(FVector LookTarget);
+	virtual void Fire();
+	virtual void HandleDestruction();
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components", meta=(AllowPrivateAccess="true"))
 	UCapsuleComponent* CapsuleComponent = nullptr;
@@ -34,9 +39,5 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
 
 };

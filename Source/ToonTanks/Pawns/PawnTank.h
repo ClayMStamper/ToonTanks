@@ -34,6 +34,8 @@ private:
 	float MaxSprintBonus = 100.f;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Movement", meta=(AllowPrivateAccess="true"))
 	float RotSpeed = 100.f;
+
+	APlayerController* PlayerController;
 	
 	void CalcMoveInput(float Val);
 	void CalcRotateInput(float Val);
@@ -55,6 +57,6 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
+	virtual void HandleDestruction() override;
 	
 };

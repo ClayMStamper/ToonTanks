@@ -45,3 +45,29 @@ void APawnBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 }
 
+void APawnBase::RotateBarrel(FVector LookTarget)
+{
+	const FVector BarrelPos = BarrelMesh->GetComponentLocation();
+	const FVector SelfToTarget = FVector(LookTarget.X, LookTarget.Y, BarrelPos.Z) - BarrelPos;
+	const FRotator NewBarrelRot = FVector(SelfToTarget).Rotation();
+	BarrelMesh->SetWorldRotation(NewBarrelRot);
+}
+
+void APawnBase::Fire()
+{
+	UE_LOG(LogTemp, Warning, TEXT("%s Fired!"), *GetOwner()->GetName());
+}
+
+void APawnBase::HandleDestruction()
+{
+	// --- Universal --- 
+	//play death effects - particles, camera shake, sound
+
+	// --- Child Overrides ---
+	// Inform the GameMode
+	// -Turret: Destroy self
+	// -Tank: Hide() components and stop input
+	
+}
+
+
